@@ -1,15 +1,51 @@
-import React from 'react'
-import './Post.css'
-import { Avatar } from '@material-ui/core'
+import React, { forwardRef } from 'react';
+import './Post.css';
+import { Avatar } from '@material-ui/core';
+import VerifiedUserIcon from '@material-ui/icons/VerifiedUser';
+import ChatBubbleOutlineIcon from '@material-ui/icons/ChatBubbleOutline';
+import RepeatIcon from '@material-ui/icons/Repeat';
+import FavoriteBorderOutlinedIcon from '@material-ui/icons/FavoriteBorderOutlined';
+import PublishOutlinedIcon from '@material-ui/icons/PublishOutlined';
 
-function Post({ displayName, username, verified, timestamp, text, image, avatar}) {
-    return (
-        <div className="post">
-            <div className="post__avatar">
-                <Avatar src="" alt=""/>
-            </div>
-        </div>
-    )
-}
+const Post = forwardRef(({ 
+    displayName, 
+    username, 
+    verified, 
+    text, 
+    image, 
+    avatar 
+}, ref) => {
+	return (
+		<div className="post" ref={ref}>
+			<div className="post__avatar">
+				<Avatar src={avatar} alt="" />
+			</div>
+			<div className="post__body">
+				<div className="post__header">
+					<div className="post__headerText">
+						<h3>
+							{displayName}{' '}
+							<span className="post__headerSpecial">
+								{verified && <VerifiedUserIcon className="post__badge" />}
+								@{username}
+							</span>
+						</h3>
+					</div>
+					<div className="post__headerDescription">
+						<p>{text}</p>
+					</div>
+				</div>
+				<img src={image} alt=""/>
 
-export default Post
+				<div className="post__footer">
+					<ChatBubbleOutlineIcon fontSize="small" />
+					<RepeatIcon fontSize="small" />
+					<FavoriteBorderOutlinedIcon fontSize="small" />
+					<PublishOutlinedIcon fontSize="small" />
+				</div>
+			</div>
+		</div>
+	);
+});
+
+export default Post;
